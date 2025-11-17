@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}AI inside me{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+  <header>
+    <h1><a href="/">AI inside me</a></h1>
+    <nav>
+      <a href="/">홈</a>
+      <a href="/history">이전 요약 보기</a>
+    </nav>
+    <hr>
+  </header>
+
+  {% block content %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,78 @@
+/* 기본 레이아웃 */
+body {
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 16px;
+  background: #f9fafb;
+  color: #111;
+}
+
+/* 카드 */
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  padding: 16px;
+  margin-top: 20px;
+}
+
+/* 버튼 */
+button, .btn {
+  background-color: #2563eb;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+button:hover, .btn:hover {
+  background-color: #1d4ed8;
+}
+
+/* 입력창 */
+textarea, input[type="text"] {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px;
+  margin-top: 6px;
+}
+
+/* 링크 */
+a {
+  color: #2563eb;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* 헤더 */
+header h1 {
+  color: #111;
+}
+nav a {
+  margin-right: 10px;
+  font-weight: 500;
+}
+
+/* 페이지네이션 */
+.pagination {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* --- Fade-in animation --- */
+.fade-in {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-in.show {
+  opacity: 1;
+  transform: translateY(0);
+}

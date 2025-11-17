@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}이전 요약 기록{% endblock %}
+{% block content %}
+
+<h2>이전 요약 기록</h2>
+
+<form method="get" action="/history">
+  <input type="text" name="q" value="{{ q or '' }}" placeholder="검색어 입력">
+  <button type="submit">검색</button>
+</form>
+
+<ul>
+{% for s in summaries %}
+  <li>
+    <a href="{{ url_for('main.summary_detail', summary_id=s.id) }}">
+      <b>{{ s.created_at.strftime("%Y-%m-%d %H:%M") }}</b>
+    </a><br>
+    원문: {{ s.text[:80] }}...<br>
+    요약: {{ s.summary }}
+    &nbsp;
+    <a href="{{ url_for('main.delete_summary', summary_id=s.id) }}"
+       onclick="return confirm('이 기록을 삭제할까요?')">삭제</a>
+  </li>
+{% else %}
+  <p>결과가 없습니다.</p>
+{% endfor %}
+</ul>
+
+<div style="margin-top:12px">
+  {% if has_prev %}
+    <a href="{{ url_for('main.history', page=page-1, q=q) }}">← 이전</a>
+  {% endif %}
+  <span style="margin:0 8px">페이지 {{ page }}</span>
+  {% if has_next %}
+    <a href="{{ url_for('main.history', page=page+1, q=q) }}">다음 →</a>
+  {% endif %}
+</div>
+
+{% endblock %}

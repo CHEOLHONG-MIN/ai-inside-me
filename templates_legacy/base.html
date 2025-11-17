@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}AI inside me{% endblock %}</title>
+  <style>
+    body { font-family: system-ui, sans-serif; line-height:1.6; max-width: 800px; margin: 40px auto; padding: 0 16px;}
+    .card { background:#f7f7f8; border:1px solid #e8e8ea; padding:16px; border-radius:12px; margin-top:16px; }
+    .pill { background:#fff; border:1px solid #e5e7eb; border-radius:999px; padding:6px 10px; display:inline-block; margin-right:8px;}
+    a { text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><a href="/">AI inside me</a></h1>
+    <nav><a href="/history">이전 요약 보기</a></nav>
+    <hr>
+  </header>
+  {% block content %}{% endblock %}
+</body>
+</html>

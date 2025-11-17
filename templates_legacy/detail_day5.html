@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>요약 상세보기</title>
+  <style>
+    body { font-family: system-ui, sans-serif; line-height: 1.6; max-width: 720px; margin: 40px auto; padding: 0 16px; }
+    .card { background:#f9f9f9; padding:20px; border-radius:12px; margin-top:20px; }
+    button { margin-top:10px; padding:6px 12px; cursor:pointer; }
+  </style>
+  <script>
+    function copyText() {
+      const text = document.getElementById("summaryText").innerText;
+      navigator.clipboard.writeText(text);
+      alert("요약문이 클립보드에 복사되었습니다!");
+    }
+  </script>
+</head>
+<body>
+  <h1>요약 상세보기</h1>
+  <a href="/history">← 기록으로 돌아가기</a>
+
+  <div class="card">
+    <h3>📅 {{ s.created_at.strftime("%Y-%m-%d %H:%M") }}</h3>
+    <h4>원문</h4>
+    <p>{{ s.text }}</p>
+
+    <h4>요약</h4>
+    <p id="summaryText">{{ s.summary }}</p>
+    <button onclick="copyText()">복사하기</button>
+  </div>
+</body>
+</html>

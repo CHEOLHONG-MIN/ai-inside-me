@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}AI inside me - 요약하기{% endblock %}
+{% block content %}
+
+<h2>문장 요약하기</h2>
+
+<div class="card">
+  <textarea id="textInput" rows="6" placeholder="요약할 문장을 입력하세요"></textarea>
+  <button id="summarizeBtn">요약하기</button>
+</div>
+
+<!-- ✅ 로딩 표시용 요소 -->
+<div id="loading" style="display:none; margin-top:10px; text-align:center;">
+  <p>🤖 <span id="dots">요약 중입니다</span></p>
+</div>
+
+<div id="resultBox" class="card fade-in" style="display:none; margin-top:20px;">
+  <h3>요약 결과</h3>
+  <p id="summaryText"></p>
+  <button id="copyBtn" onclick="copySummary()">복사하기</button>
+</div>
+
+<script>
+document.getElementById("summarizeBtn").addEventListener("click", async () => {
+  const text = document.getElementById("textInput").value.trim();
+  if (!text) {
+    alert("요약할 텍스트를 입력하세요!");
+    return;
+  }
+
+  const btn = document.getElementById("summarizeBtn");
+  const loader = document.getElementById("loading");
+  const dots = document.getElementById("dots");
+  const resultBox = document.getElementById("resultBox");
+
+  // 초기화
+  resultBox.style.display = "none";
+  loader.style.display = "block";
+  btn.disabled = true;
+  btn.innerText = "요약 중...";
+
+  // 로딩 애니메이션 (점 1~3개 깜빡임)
+  let dotCount = 0;
+  const loadingAnim = setInterval(() => {
+    dotCount = (dotCount + 1) % 4;
+    dots.textContent = "요약 중입니다" + ".".repeat(dotCount);
+  }, 400);
+
+  try {
+    const res = await fetch("/api/summarize", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text })
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      // 결과 표시
+      document.getElementById("summaryText").innerText = data.summary;
+      resultBox.style.display = "block";
+      resultBox.classList.remove("show");
+      setTimeout(() => resultBox.classList.add("show"), 10);
+    } else {
+      alert(data.error || "요약 중 오류가 발생했습니다.");
+    }
+  } catch (err) {
+    alert("서버 오류가 발생했습니다.");
+    console.error(err);
+  } finally {
+    // 로딩 종료
+    clearInterval(loadingAnim);
+    loader.style.display = "none";
+    btn.disabled = false;
+    btn.innerText = "요약하기";
+  }
+});
+</script>
+
+{% endblock %}

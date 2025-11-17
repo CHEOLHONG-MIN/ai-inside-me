@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>요약 기록</title>
+</head>
+<body>
+  <h1>이전 요약 기록</h1>
+  <a href="/">← 돌아가기</a>
+  <ul>
+  {% for s in summaries %}
+    <li>
+      <b>{{ s.created_at.strftime("%Y-%m-%d %H:%M") }}</b><br>
+      원문: {{ s.text[:80] }}...<br>
+      요약: {{ s.summary }}
+    </li>
+  {% else %}
+    <p>아직 저장된 요약이 없습니다.</p>
+  {% endfor %}
+  </ul>
+</body>
+</html>

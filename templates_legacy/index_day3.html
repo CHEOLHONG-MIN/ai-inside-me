@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI inside me</title>
+</head>
+<body>
+  <h1>AI inside me</h1>
+
+  <form action="/summarize" method="post" style="margin-top:1rem">
+    <textarea name="text" rows="6" cols="60"
+      placeholder="요약할 문장을 붙여넣으세요" required></textarea><br>
+    <button type="submit">요약하기</button>
+  </form>
+
+  {% if summary %}
+    <h3>요약 결과</h3>
+    <p>{{ summary }}</p>
+  {% endif %}
+</body>
+</html>
