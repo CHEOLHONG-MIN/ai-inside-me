@@ -1,13 +1,64 @@
 {% extends "base.html" %}
-{% block title %}요약 상세보기{% endblock %}
 {% block content %}
-  <a href="/history">← 기록으로 돌아가기</a>
-  <div class="card">
-    <h3>📅 {{ s.created_at.strftime("%Y-%m-%d %H:%M") }}</h3>
-    <h4>원문</h4>
-    <p style="white-space:pre-wrap">{{ s.text }}</p>
-    <h4>요약</h4>
-    <p id="summaryText">{{ s.summary }}</p>
-    <button onclick="navigator.clipboard.writeText(document.getElementById('summaryText').innerText); alert('요약문이 복사되었습니다!')">복사하기</button>
+
+<h2>요약 상세보기</h2>
+
+<div class="summary-detail">
+  <div class="summary-date">
+    {{ summary.created_at.strftime("%Y-%m-%d %H:%M") }}
   </div>
+
+  <h3>요약 결과</h3>
+  <p id="summary-text">{{ summary.summary }}</p>
+
+  <button id="copy-btn">📋 복사하기</button>
+  <hr>
+
+  <h3>원문 전체</h3>
+  <div id="original-text" style="display: none; white-space: pre-wrap;">{{ summary.text }}</div>
+  <button id="toggle-btn">👁 원문 보기</button>
+
+  <hr>
+  <button id="delete-btn" style="background-color:#dc3545;">🗑 삭제하기</button>
+  <a href="/history">← 목록으로</a>
+</div>
+
+<script>
+  // 원문 보기 / 숨기기
+  document.getElementById("toggle-btn").addEventListener("click", function() {
+    const original = document.getElementById("original-text");
+    if (original.style.display === "none") {
+      original.style.display = "block";
+      this.textContent = "👁 숨기기";
+    } else {
+      original.style.display = "none";
+      this.textContent = "👁 원문 보기";
+    }
+  });
+
+  // 요약 복사
+  document.getElementById("copy-btn").addEventListener("click", function() {
+    const text = document.getElementById("summary-text").innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      alert("요약이 복사되었습니다!");
+    });
+  });
+
+  // 삭제 기능
+  document.getElementById("delete-btn").addEventListener("click", function() {
+    if (confirm("정말 삭제하시겠습니까?")) {
+      fetch("/delete/{{ summary.id }}", { method: "POST" })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            alert("삭제되었습니다.");
+            window.location.href = "/history";
+          } else {
+            alert("삭제 실패. 다시 시도해 주세요.");
+          }
+        });
+    }
+  });
+</script>
+
 {% endblock %}

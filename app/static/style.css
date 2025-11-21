@@ -1,78 +1,243 @@
-/* 기본 레이아웃 */
+/* 사용자 지정 색상과 강조 */
+mark {
+  background-color: #fff36e;
+  font-weight: bold;
+}
+
+/* 요약 카드 스타일 */
+.summary-item {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.summary-item:hover {
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.summary-date {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-bottom: 0.5rem;
+}
+
+/* 검색 폼 간격 */
+.search-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.search-input, .search-select {
+  flex: 1;
+  min-width: 150px;
+}
+
+/* 페이지네이션 중앙 정렬 */
+.pagination {
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+/* ========== 기본 레이아웃 ========== */
 body {
-  font-family: system-ui, sans-serif;
-  line-height: 1.6;
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 0 16px;
-  background: #f9fafb;
-  color: #111;
+  font-family: "Noto Sans KR", Arial, sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 0;
 }
 
-/* 카드 */
-.card {
+.container {
+  max-width: 900px;
+  margin: 2rem auto;
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  padding: 16px;
-  margin-top: 20px;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* 버튼 */
-button, .btn {
-  background-color: #2563eb;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-button:hover, .btn:hover {
-  background-color: #1d4ed8;
+h1, h2, h3 {
+  color: #222;
+  margin-bottom: 1rem;
 }
 
-/* 입력창 */
-textarea, input[type="text"] {
-  width: 100%;
+/* ========== 검색 폼 ========== */
+.search-form {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 8px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 8px;
   border: 1px solid #ccc;
   border-radius: 6px;
-  padding: 8px;
-  margin-top: 6px;
 }
 
-/* 링크 */
+.search-btn {
+  padding: 8px 14px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.search-btn:hover {
+  background-color: #0056b3;
+}
+
+.search-select {
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+/* ========== 요약 목록 ========== */
+.summary-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.summary-item {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  transition: background-color 0.2s ease;
+}
+
+.summary-item:hover {
+  background-color: #eef4ff;
+}
+
+.summary-date {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+/* ========== 하이라이트 ========== */
+mark {
+  background-color: #fff36e;
+  font-weight: bold;
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+/* ========== 페이지네이션 ========== */
+.pagination {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.pagination a {
+  color: #007bff;
+  text-decoration: none;
+  margin: 0 4px;
+}
+
+.pagination a:hover {
+  text-decoration: underline;
+}
+
+.pagination strong {
+  color: #333;
+  margin: 0 4px;
+}
+
+/* ========== 기타 링크 및 푸터 ========== */
 a {
-  color: #2563eb;
+  color: #007bff;
   text-decoration: none;
 }
+
 a:hover {
   text-decoration: underline;
 }
 
-/* 헤더 */
-header h1 {
-  color: #111;
-}
-nav a {
-  margin-right: 10px;
-  font-weight: 500;
+footer {
+  text-align: center;
+  color: #777;
+  font-size: 0.9rem;
+  margin-top: 2rem;
 }
 
-/* 페이지네이션 */
-.pagination {
-  margin-top: 12px;
-  display: flex;
-  justify-content: center;
-  gap: 8px;
+.summary-detail {
+  background-color: #fefefe;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* --- Fade-in animation --- */
-.fade-in {
-  opacity: 0;
-  transform: translateY(-10px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+.summary-detail button {
+  margin: 5px 0;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
 }
-.fade-in.show {
-  opacity: 1;
-  transform: translateY(0);
+
+#copy-btn {
+  background-color: #28a745;
+  color: white;
 }
+
+#toggle-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+#delete-btn {
+  color: white;
+}
+
+#delete-btn:hover {
+  background-color: #b02a37;
+}
+
+/* 🔧 Navbar 색상 강제 수정 */
+.navbar {
+  background-color: #0d6efd !important; /* Bootstrap 파랑 */
+}
+
+.navbar-brand {
+  color: #ffffff !important; /* 흰 글씨 */
+}
+
+.navbar-brand:hover {
+  color: #e9ecef !important; /* 살짝 회색으로 hover 효과 */
+}
+
+.navbar-nav .nav-link {
+  color: #ffffff !important; /* 메뉴 글씨 흰색 */
+}
+
+.navbar-nav .nav-link:hover {
+  color: #e9ecef !important;
+}
+
+/* ✅ Navbar 텍스트 색상 강제 적용 */
+.navbar-dark .navbar-brand {
+  color: #ffffff !important;
+}
+
+.navbar-dark .navbar-brand:hover {
+  color: #e9ecef !important;
+}
+
+body.bg-light .navbar {
+  background-color: #0d6efd !important;  /* 파란색 */
+  color: white !important;
+}
+

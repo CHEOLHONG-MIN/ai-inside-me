@@ -1,12 +1,16 @@
 import os
 from flask import Flask
 from dotenv import load_dotenv
+
+# .env 파일 로드
+load_dotenv()
+
 from app.config import Config
 from app.models import db
 from app.routes.main import bp as main_bp
 
+
 def create_app():
-    load_dotenv()
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(Config)
 
