@@ -1,41 +1,71 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI inside me</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI inside me</title>
 
-<!-- ✅ Bootstrap 5 CDN -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- ✅ Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- ✅ 사용자 정의 CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
 
-<!-- ✅ 사용자 정의 스타일 -->
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
+  <body>
+    <!-- 🔹 네비게이션 바 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-3">
+      <a class="navbar-brand fw-bold text-white" href="/">[Boksiri] AI inside me</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-<body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
-  <div class="container">
-    <a class="navbar-brand fw-bold" href="/">[Boksiri] AI inside me</a>
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/">홈</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/history">이전 요약 보기</a>
-        </li>
-      </ul>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          {% if current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link text-white" href="/history">내 요약 기록</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="/auth/logout">로그아웃</a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link text-white" href="/auth/login">로그인</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="/auth/register">회원가입</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+
+    <!-- 🔹 본문 컨테이너 -->
+    <div class="container mt-4">
+      <!-- 🔸 플래시 메시지 -->
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="alert alert-info">
+            {% for msg in messages %}
+              {{ msg }}<br />
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      <!-- 🔸 페이지별 콘텐츠 -->
+      {% block content %}{% endblock %}
     </div>
-  </div>
-</nav>
 
-  <main class="container bg-white p-4 rounded shadow-sm">
-    {% block content %}{% endblock %}
-  </main>
-
-  <footer class="text-center mt-4 mb-3 text-muted">
-    <p>© 2025 AI inside me | Powered by Flask</p>
-  </footer>
-</body>
+    <!-- ✅ Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

@@ -1,45 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
-
-<h2 class="mb-4">이전 요약 기록</h2>
-
-<form method="get" action="/history" class="search-form">
-  <input type="text" name="q" class="form-control search-input"
-         placeholder="검색어 입력" value="{{ request.args.get('q', '') }}">
-  <select name="sort" class="form-select search-select">
-    <option value="desc" {% if request.args.get('sort') == 'desc' %}selected{% endif %}>최신순</option>
-    <option value="asc" {% if request.args.get('sort') == 'asc' %}selected{% endif %}>오래된순</option>
-  </select>
-  <input type="text" name="exclude" class="form-control search-input"
-         placeholder="제외할 단어 (선택)" value="{{ request.args.get('exclude', '') }}">
-  <button type="submit" class="btn btn-primary">검색</button>
-</form>
-
-<a href="/" class="text-decoration-none mb-3 d-inline-block">← 돌아가기</a>
+<h2>📜 나의 요약 기록</h2>
 
 {% if summaries %}
-  {% for s in summaries %}
-    <div class="summary-item">
-      <div class="summary-date">{{ s.created_at.strftime("%Y-%m-%d %H:%M") }}</div>
-      <div><strong>원문:</strong> {{ s.text[:150]|safe }}...</div>
-      <div><strong>요약:</strong> {{ s.summary|safe }}</div>
-      <a href="{{ url_for('main.summary_detail', summary_id=s.id) }}" class="btn btn-outline-secondary btn-sm mt-2">상세보기</a>
-    </div>
-  {% endfor %}
-
-  {% if pagination.pages > 1 %}
-  <nav>
-    <ul class="pagination">
-      {% for p in range(1, pagination.pages + 1) %}
-        <li class="page-item {% if p == pagination.page %}active{% endif %}">
-          <a class="page-link" href="{{ url_for('main.history', page=p, q=request.args.get('q', ''), sort=request.args.get('sort', ''), exclude=request.args.get('exclude', '')) }}">{{ p }}</a>
-        </li>
-      {% endfor %}
-    </ul>
-  </nav>
-  {% endif %}
+  <ul class="list-group mt-3">
+    {% for s in summaries %}
+      <li class="list-group-item">
+        <div><strong>{{ s.created_at.strftime("%Y-%m-%d %H:%M") }}</strong></div>
+        <div><b>원문:</b> {{ s.text[:80] }}...</div>
+        <div><b>요약:</b> {{ s.summary }}</div>
+      </li>
+    {% endfor %}
+  </ul>
 {% else %}
-  <p class="text-muted">검색 결과가 없습니다.</p>
+  <p>아직 저장된 요약이 없습니다.</p>
 {% endif %}
-
 {% endblock %}
