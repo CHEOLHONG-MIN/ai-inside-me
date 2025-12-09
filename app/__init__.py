@@ -2,9 +2,21 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
-from dotenv import load_dotenv
 from datetime import timedelta
+
 import os
+from openai import OpenAI
+
+class OpenAISummaryProvider:
+    def __init__(self):
+        api_key = os.environ.get("OPENAI_API_KEY")
+        print("🔍 DEBUG: 현재 환경변수 목록 일부 =", list(os.environ.keys())[:20])
+        print("🔍 DEBUG: OPENAI_API_KEY =", api_key[:8] + "..." if api_key else "None")
+
+        if not api_key:
+            raise ValueError("❌ OPENAI_API_KEY가 .env 파일이나 Railway Variables에 설정되어 있지 않습니다.")
+        self.client = OpenAI(api_key=api_key)
+
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
@@ -12,7 +24,6 @@ login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 
 def create_app():
-    load_dotenv()
 
     app = Flask(__name__, instance_relative_config=True)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///summaries.db'
